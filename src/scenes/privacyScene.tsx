@@ -3,6 +3,7 @@ import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Input, Button, Avatar } from 'react-native-elements';
 
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 require('firebase/firestore');
 
 interface privacySceneProps {}
@@ -11,6 +12,7 @@ interface privacySceneState {
 	nome: boolean;
 	sobrenome: boolean;
 	loading: boolean;
+	btnLoading: boolean;
 	doc_id: string;
 }
 
@@ -22,6 +24,7 @@ export default class privacyScene extends Component<
 		nome: false,
 		sobrenome: false,
 		loading: true,
+		btnLoading: false,
 		doc_id: ''
 	};
 
@@ -50,6 +53,7 @@ export default class privacyScene extends Component<
 	}
 
 	enviarEscolhas() {
+		this.setState({ btnLoading: true });
 		const firestore = firebase.firestore();
 		const ref = firestore.collection('users');
 
@@ -58,7 +62,10 @@ export default class privacyScene extends Component<
 				'dados_dele.nome': this.state.nome,
 				'dados_dele.sobrenome': this.state.sobrenome
 			})
-			.then(() => console.log('atualizado'))
+			.then(() => {
+				this.setState({ btnLoading: false });
+				Actions.privacyOutro();
+			})
 			.catch(erro => console.log(erro));
 	}
 
@@ -86,6 +93,7 @@ export default class privacyScene extends Component<
 				<Button
 					buttonStyle={button}
 					title={'Enviar'}
+					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}
 				/>
 			</View>
