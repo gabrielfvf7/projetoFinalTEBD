@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Input, Button, Avatar } from 'react-native-elements';
 
-const firebase = require('firebase');
+import firebase from 'firebase';
 require('firebase/firestore');
 
 interface privacySceneProps {}
@@ -10,6 +10,7 @@ interface privacySceneProps {}
 interface privacySceneState {
 	nome: boolean;
 	sobrenome: boolean;
+	loading: boolean;
 }
 
 export default class privacyScene extends Component<
@@ -18,7 +19,8 @@ export default class privacyScene extends Component<
 > {
 	public state: privacySceneState = {
 		nome: false,
-		sobrenome: false
+		sobrenome: false,
+		loading: true
 	};
 
 	public componentDidMount() {
@@ -34,33 +36,57 @@ export default class privacyScene extends Component<
 
 		query.get().then(snapshot => {
 			snapshot.forEach(doc => {
+				console.log(doc.id);
 				user = doc.data();
 				console.log(user);
 				this.setState({
 					nome: user.dados_dele.nome,
 					sobrenome: user.dados_dele.sobrenome
 				});
+				this.setState({ loading: false });
 			});
 		});
+	}
+
+	enviarEscolhas() {
+		const firestore = firebase.firestore();
+		const ref = firestore.collection('users');
+		const query = ref.where('id_user', '==', 0);
+
+		query
+			.update({
+				nome: this.state.nome,
+				sobrenome: this.state.sobrenome
+			})
+			.then(() => console.log('Att sucedida'))
+			.catch(error => console.log(error));
 	}
 
 	public render() {
 		const { button, buttonDisabled, container } = styles;
 
-		return (
+		return this.state.loading ? (
+			<View style={container}>
+				<ActivityIndicator />
+			</View>
+		) : (
 			<View style={container}>
 				<Button
-					buttonStyle={!this.state.nome ? button : buttonDisabled}
+					buttonStyle={this.state.nome ? button : buttonDisabled}
 					title={'Nome'}
 					onPress={() => this.setState({ nome: !this.state.nome })}
 				/>
 				<Button
-					buttonStyle={button}
+					buttonStyle={this.state.sobrenome ? button : buttonDisabled}
 					title={'Sobrenome'}
-					disabled={!this.state.sobrenome}
 					onPress={() =>
 						this.setState({ sobrenome: !this.state.sobrenome })
 					}
+				/>
+				<Button
+					buttonStyle={button}
+					title={'Enviar'}
+					onPress={() => this.enviarEscolhas()}
 				/>
 			</View>
 		);
@@ -90,6 +116,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 25
 	},
 	buttonDisabled: {
+		borderRadius: 8,
+		paddingHorizontal: 25,
 		backgroundColor: 'gray'
 	}
 });
