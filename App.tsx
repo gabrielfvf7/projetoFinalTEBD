@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Router from './Router';
+import { AppState } from 'react-native';
 
-export default function welcomeScene() {
-  return (
-    <Router/>
-  );
+export default class App extends Component<AppState> {
+	public render() {
+		return <Router />;
+	}
 }
