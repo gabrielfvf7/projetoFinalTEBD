@@ -11,6 +11,7 @@ interface privacySceneState {
 	nome: boolean;
 	sobrenome: boolean;
 	loading: boolean;
+	doc_id: string;
 }
 
 export default class privacyScene extends Component<
@@ -20,7 +21,8 @@ export default class privacyScene extends Component<
 	public state: privacySceneState = {
 		nome: false,
 		sobrenome: false,
-		loading: true
+		loading: true,
+		doc_id: ''
 	};
 
 	public componentDidMount() {
@@ -36,14 +38,13 @@ export default class privacyScene extends Component<
 
 		query.get().then(snapshot => {
 			snapshot.forEach(doc => {
-				console.log(doc.id);
 				user = doc.data();
 				console.log(user);
 				this.setState({
 					nome: user.dados_dele.nome,
 					sobrenome: user.dados_dele.sobrenome
 				});
-				this.setState({ loading: false });
+				this.setState({ loading: false, doc_id: doc.id });
 			});
 		});
 	}
@@ -51,15 +52,14 @@ export default class privacyScene extends Component<
 	enviarEscolhas() {
 		const firestore = firebase.firestore();
 		const ref = firestore.collection('users');
-		const query = ref.where('id_user', '==', 0);
 
-		query
+		ref.doc(this.state.doc_id)
 			.update({
-				nome: this.state.nome,
-				sobrenome: this.state.sobrenome
+				'dados_dele.nome': this.state.nome,
+				'dados_dele.sobrenome': this.state.sobrenome
 			})
-			.then(() => console.log('Att sucedida'))
-			.catch(error => console.log(error));
+			.then(() => console.log('atualizado'))
+			.catch(erro => console.log(erro));
 	}
 
 	public render() {
