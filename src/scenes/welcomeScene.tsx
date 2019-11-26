@@ -36,6 +36,15 @@ export default class welcomeScene extends Component<
 				cpf: true,
 				endereco: true,
 				profissao: true
+			},
+			dados_outros: {
+				nome: true,
+				sobrenome: true,
+				idade: true,
+				rg: true,
+				cpf: true,
+				endereco: true,
+				profissao: true
 			}
 		})
 			.then(docRef => {
@@ -49,7 +58,7 @@ export default class welcomeScene extends Component<
 
 		return this.state.loading ? (
 			<View style={container}>
-				<ActivityIndicator size={30} />]
+				<ActivityIndicator size="large" />
 			</View>
 		) : (
 			<View style={container}>
