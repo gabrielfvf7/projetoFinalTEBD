@@ -1,45 +1,55 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Avatar } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
-export default function avatarScene() {
-    const { container, input } = styles;
+interface avatarSceneProps {
+	idDoc: string;
+}
 
-    return (
-        <View style={container}>
-            <Avatar rounded size="xlarge" />
-            <Input
-                inputContainerStyle={input}
-                placeholderTextColor={'white'}
-                inputStyle={{ color: 'white' }}
-                placeholder={'Nome'}
-            />
-            <Input
-                inputContainerStyle={input}
-                placeholderTextColor={'white'}
-                inputStyle={{ color: 'white' }}
-                placeholder={'Sobrenome'}
-            />
-            <Button title={'Próximo'} onPress={() => Actions.privacy()} />
-        </View>
-    );
+interface avatarSceneState {}
+
+export default class avatarScene extends Component<avatarSceneProps> {
+	public render() {
+		const { container, input } = styles;
+
+		console.log(this.props.idDoc);
+
+		return (
+			<View style={container}>
+				<Avatar rounded size="xlarge" />
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Nome'}
+				/>
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Sobrenome'}
+				/>
+				<Button title={'Próximo'} onPress={() => Actions.privacy()} />
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    input: {
-        paddingLeft: 5,
-        marginTop: 20,
-        marginHorizontal: 30,
-        borderColor: 'black',
-        backgroundColor: '#79C7FF',
-        borderRadius: 8,
-        borderWidth: 2
-    }
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	input: {
+		paddingLeft: 5,
+		marginTop: 20,
+		marginHorizontal: 30,
+		borderColor: 'black',
+		backgroundColor: '#79C7FF',
+		borderRadius: 8,
+		borderWidth: 2
+	}
 });

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Input, Button, Avatar } from 'react-native-elements';
-
+import { Button } from 'react-native-elements';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 require('firebase/firestore');
@@ -29,7 +28,9 @@ export default class privacyScene extends Component<
 	};
 
 	public componentDidMount() {
-		firebase.initializeApp(firebaseConfig);
+		if (!firebase.apps.length) {
+			firebase.initializeApp(firebaseConfig);
+		}
 		this.preencherCampos();
 	}
 
