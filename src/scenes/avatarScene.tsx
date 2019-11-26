@@ -1,36 +1,103 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { Input, Button, Avatar } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 interface avatarSceneProps {
 	idDoc: string;
 }
 
-interface avatarSceneState {}
+interface avatarSceneState {
+	nome: string;
+	sobrenome: string;
+	idade: string;
+	avatar: string;
+}
 
-export default class avatarScene extends Component<avatarSceneProps> {
+export default class avatarScene extends Component<
+	avatarSceneProps,
+	avatarSceneState
+> {
+	public state: avatarSceneState = {
+		nome: null,
+		sobrenome: '',
+		idade: null,
+		avatar: null
+	};
+
+	public async escolheImagem() {
+		const { status: cameraPermission } = await Permissions.askAsync(
+			Permissions.CAMERA
+		);
+		const { status: cameraRollPermission } = await Permissions.askAsync(
+			Permissions.CAMERA_ROLL
+		);
+		if (
+			cameraPermission === 'granted' &&
+			cameraRollPermission === 'granted'
+		) {
+			const result = await ImagePicker.launchImageLibraryAsync();
+			console.log(result);
+		} else {
+			Alert.alert('Permissão negada');
+		}
+	}
+
 	public render() {
 		const { container, input } = styles;
 
-		console.log(this.props.idDoc);
-
 		return (
 			<View style={container}>
-				<Avatar rounded size="xlarge" />
+				<Avatar
+					rounded
+					size="xlarge"
+					source={{ uri: this.state.avatar }}
+					onPress={() => this.escolheImagem()}
+				/>
 				<Input
 					inputContainerStyle={input}
 					placeholderTextColor={'white'}
 					inputStyle={{ color: 'white' }}
 					placeholder={'Nome'}
+					onChangeText={(nome: string) => this.setState({ nome })}
+					value={this.state.nome}
 				/>
 				<Input
 					inputContainerStyle={input}
 					placeholderTextColor={'white'}
 					inputStyle={{ color: 'white' }}
 					placeholder={'Sobrenome'}
+					onChangeText={(sobrenome: string) =>
+						this.setState({ sobrenome })
+					}
+					value={this.state.sobrenome}
 				/>
-				<Button title={'Próximo'} onPress={() => Actions.privacy()} />
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Idade'}
+					keyboardType={'numeric'}
+					onChangeText={(idade: string) => this.setState({ idade })}
+					value={this.state.idade}
+				/>
+				<Button
+					title={'Próximo'}
+					buttonStyle={{ marginTop: 15 }}
+					onPress={() =>
+						Actions.privacy({
+							idDoc: this.props.idDoc,
+							userData: {
+								nome: this.state.nome,
+								sobrenome: this.state.sobrenome,
+								idade: this.state.idade,
+								avatar: this.state.avatar
+							}
+						})
+					}
+				/>
 			</View>
 		);
 	}
