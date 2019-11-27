@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Avatar } from 'react-native-elements';
 import firebase from 'firebase';
 import { userBol } from '../interfaces/userBol';
 import { Actions } from 'react-native-router-flux';
@@ -101,7 +101,7 @@ export default class privacyOutro extends Component<
 				<Avatar
 					rounded
 					size="xlarge"
-					source={{ uri: avatar ? this.props.userData.avatar : null }}
+					source={{ uri: null }}
 					onPress={() => this.setState({ avatar: !avatar })}
 				/>
 				<View

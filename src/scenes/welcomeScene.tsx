@@ -3,6 +3,7 @@ import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
+require('firebase/firestore');
 
 interface welcomeSceneProps {}
 
