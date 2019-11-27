@@ -5,21 +5,80 @@ import { Actions } from 'react-native-router-flux';
 
 interface maisDadosProps {
 	idDoc: string;
-	nome: string;
-	sobrenome: string;
-	idade: string;
-	avatar: string;
+	userData: Object;
 }
 
-interface maisDadosState {}
+interface maisDadosState {
+	profissao: string;
+	rg: string;
+	cpf: string;
+	endereco: string;
+	escolaridade: string;
+}
 
 export default class maisDados extends Component<maisDadosProps> {
+	public state: maisDadosState = {
+		profissao: null,
+		rg: null,
+		cpf: null,
+		endereco: null,
+		escolaridade: null
+	};
+
 	public render() {
 		const { container, input } = styles;
+		const { profissao, rg, cpf, endereco, escolaridade } = this.state;
+
+		console.log(this.props.userData);
 
 		return (
 			<View style={container}>
-				<Input style={input} />
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Endereço'}
+					onChangeText={(endereco: string) =>
+						this.setState({ endereco })
+					}
+					value={endereco}
+				/>
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Escolaridade'}
+					onChangeText={(escolaridade: string) =>
+						this.setState({ escolaridade })
+					}
+					value={escolaridade}
+				/>
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'Profissão'}
+					onChangeText={(profissao: string) =>
+						this.setState({ profissao })
+					}
+					value={profissao}
+				/>
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'RG'}
+					onChangeText={(rg: string) => this.setState({ rg })}
+					value={rg}
+				/>
+				<Input
+					inputContainerStyle={input}
+					placeholderTextColor={'white'}
+					inputStyle={{ color: 'white' }}
+					placeholder={'CPF'}
+					onChangeText={(cpf: string) => this.setState({ cpf })}
+					value={cpf}
+				/>
 			</View>
 		);
 	}

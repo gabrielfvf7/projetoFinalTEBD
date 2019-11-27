@@ -4,6 +4,7 @@ import welcomeScene from './src/scenes/welcomeScene';
 import avatarScene from './src/scenes/avatarScene';
 import privacyScene from './src/scenes/privacyScene';
 import privacyOutro from './src/scenes/privacyOutro';
+import maisDados from './src/scenes/maisDados';
 
 const AppRouter = () => (
 	<Router>
@@ -21,6 +22,7 @@ const AppRouter = () => (
 				component={privacyOutro}
 				hideNavBar={true}
 			/>
+			<Scene key="maisDados" component={maisDados} hideNavBar={true} />
 		</Stack>
 	</Router>
 );
