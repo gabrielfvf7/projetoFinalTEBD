@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Avatar } from 'react-native-elements';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import { user } from '../interfaces/user';
+import { userBol } from '../interfaces/userBol';
 require('firebase/firestore');
 
 interface privacySceneProps {
@@ -24,6 +25,7 @@ interface privacySceneState {
 	escolaridade: boolean;
 	avatar: boolean;
 	outrosData: object;
+	dados_dele: userBol;
 }
 
 export default class privacyScene extends Component<
@@ -42,7 +44,8 @@ export default class privacyScene extends Component<
 		escolaridade: true,
 		endereco: true,
 		avatar: true,
-		outrosData: null
+		outrosData: null,
+		dados_dele: null
 	};
 
 	public componentDidMount() {
@@ -82,24 +85,30 @@ export default class privacyScene extends Component<
 		const firestore = firebase.firestore();
 		const ref = firestore.collection('users');
 
+		const dados_dele: userBol = {
+			nome: this.state.nome,
+			sobrenome: this.state.sobrenome,
+			idade: this.state.idade,
+			avatar: this.state.avatar,
+			profissao: this.state.profissao,
+			escolaridade: this.state.escolaridade,
+			rg: this.state.rg,
+			cpf: this.state.cpf,
+			endereco: this.state.endereco
+		};
+
+		this.setState({ dados_dele });
+
 		ref.doc(this.props.idDoc)
 			.update({
-				dados_dele: {
-					nome: this.state.nome,
-					sobrenome: this.state.sobrenome,
-					idade: this.state.idade,
-					avatar: this.state.avatar,
-					profissao: this.state.profissao,
-					escolaridade: this.state.escolaridade,
-					rg: this.state.rg,
-					cpf: this.state.cpf,
-					endereco: this.state.endereco
-				},
-				dados_outros: this.state.outrosData
+				dados_dele: dados_dele
 			})
 			.then(() => {
 				this.setState({ btnLoading: false });
-				Actions.privacyOutro();
+				Actions.privacyOutro({
+					idDoc: this.props.idDoc,
+					userData: this.state.dados_dele
+				});
 			})
 			.catch(erro => console.log(erro));
 	}
@@ -136,39 +145,40 @@ export default class privacyScene extends Component<
 				/>
 				<Button
 					buttonStyle={idade ? button : buttonDisabled}
-					title={'Idade'}
+					title={this.props.userData.idade}
 					onPress={() => this.setState({ idade: !idade })}
 				/>
 				<Button
 					buttonStyle={profissao ? button : buttonDisabled}
-					title={'Profissão'}
+					title={this.props.userData.profissao}
 					onPress={() => this.setState({ profissao: !profissao })}
 				/>
 				<Button
 					buttonStyle={escolaridade ? button : buttonDisabled}
-					title={'Escolaridade'}
+					title={this.props.userData.escolaridade}
 					onPress={() =>
 						this.setState({ escolaridade: !escolaridade })
 					}
 				/>
 				<Button
 					buttonStyle={rg ? button : buttonDisabled}
-					title={'RG'}
+					title={this.props.userData.rg}
 					onPress={() => this.setState({ rg: !rg })}
 				/>
 				<Button
 					buttonStyle={cpf ? button : buttonDisabled}
-					title={'CPF'}
+					title={this.props.userData.cpf}
 					onPress={() => this.setState({ cpf: !cpf })}
 				/>
 				<Button
 					buttonStyle={endereco ? button : buttonDisabled}
-					title={'Endereço'}
+					title={this.props.userData.endereco}
 					onPress={() => this.setState({ endereco: !endereco })}
 				/>
-				<Button
-					buttonStyle={avatar ? button : buttonDisabled}
-					title={'Avatar'}
+				<Avatar
+					rounded
+					size="xlarge"
+					source={{ uri: avatar ? this.props.userData.avatar : null }}
 					onPress={() => this.setState({ avatar: !avatar })}
 				/>
 				<Button

@@ -22,6 +22,7 @@ interface avatarSceneState {
 	idade: string;
 	avatar: string;
 	isModalOpen: boolean;
+	btnLoading: boolean;
 }
 
 export default class avatarScene extends Component<
@@ -33,7 +34,8 @@ export default class avatarScene extends Component<
 		sobrenome: '',
 		idade: null,
 		avatar: null,
-		isModalOpen: false
+		isModalOpen: false,
+		btnLoading: false
 	};
 
 	public async escolheImagem(tipo: string) {
@@ -130,7 +132,9 @@ export default class avatarScene extends Component<
 					<Button
 						title={'Próximo'}
 						buttonStyle={{ marginTop: 15 }}
-						onPress={() =>
+						loading={this.state.btnLoading}
+						onPress={() => {
+							this.setState({ btnLoading: true });
 							Actions.maisDados({
 								idDoc: this.props.idDoc,
 								userData: {
@@ -139,8 +143,8 @@ export default class avatarScene extends Component<
 									idade,
 									avatar
 								}
-							})
-						}
+							});
+						}}
 					/>
 				</View>
 			</KeyboardAvoidingView>
