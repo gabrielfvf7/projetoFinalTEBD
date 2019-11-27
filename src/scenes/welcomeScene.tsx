@@ -35,7 +35,9 @@ export default class welcomeScene extends Component<
 				rg: true,
 				cpf: true,
 				endereco: true,
-				profissao: true
+				profissao: true,
+				avatar: true,
+				escolaridade: true
 			},
 			dados_outros: {
 				nome: true,
@@ -44,7 +46,9 @@ export default class welcomeScene extends Component<
 				rg: true,
 				cpf: true,
 				endereco: true,
-				profissao: true
+				profissao: true,
+				avatar: true,
+				escolaridade: true
 			}
 		})
 			.then(docRef => {

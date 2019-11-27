@@ -3,16 +3,27 @@ import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import { user } from '../interfaces/user';
 require('firebase/firestore');
 
-interface privacySceneProps {}
+interface privacySceneProps {
+	idDoc: string;
+	userData: user;
+}
 
 interface privacySceneState {
-	nome: boolean;
-	sobrenome: boolean;
 	loading: boolean;
 	btnLoading: boolean;
-	doc_id: string;
+	nome: boolean;
+	sobrenome: boolean;
+	idade: boolean;
+	endereco: boolean;
+	cpf: boolean;
+	rg: boolean;
+	profissao: boolean;
+	escolaridade: boolean;
+	avatar: boolean;
+	outrosData: object;
 }
 
 export default class privacyScene extends Component<
@@ -20,11 +31,18 @@ export default class privacyScene extends Component<
 	privacySceneState
 > {
 	public state: privacySceneState = {
-		nome: false,
-		sobrenome: false,
 		loading: true,
 		btnLoading: false,
-		doc_id: ''
+		nome: true,
+		sobrenome: true,
+		idade: true,
+		rg: true,
+		cpf: true,
+		profissao: true,
+		escolaridade: true,
+		endereco: true,
+		avatar: true,
+		outrosData: null
 	};
 
 	public componentDidMount() {
@@ -36,19 +54,25 @@ export default class privacyScene extends Component<
 
 	preencherCampos() {
 		const firestore = firebase.firestore();
-		const ref = firestore.collection('users');
-		const query = ref.where('id_user', '==', 0);
-		let user: any;
+		const ref = firestore.collection('users').doc(this.props.idDoc);
 
-		query.get().then(snapshot => {
-			snapshot.forEach(doc => {
-				user = doc.data();
-				console.log(user);
-				this.setState({
-					nome: user.dados_dele.nome,
-					sobrenome: user.dados_dele.sobrenome
-				});
-				this.setState({ loading: false, doc_id: doc.id });
+		ref.get().then(snapshot => {
+			const user = snapshot.data().dados_dele;
+			const outroData = snapshot.data().dados_outros;
+			this.setState({
+				nome: user.nome,
+				sobrenome: user.sobrenome,
+				idade: user.idade,
+				rg: user.rg,
+				cpf: user.rg,
+				profissao: user.profissao,
+				escolaridade: user.escolaridade,
+				endereco: user.endereco,
+				avatar: user.avatar,
+				outrosData: {
+					...outroData
+				},
+				loading: false
 			});
 		});
 	}
@@ -58,10 +82,20 @@ export default class privacyScene extends Component<
 		const firestore = firebase.firestore();
 		const ref = firestore.collection('users');
 
-		ref.doc(this.state.doc_id)
+		ref.doc(this.props.idDoc)
 			.update({
-				'dados_dele.nome': this.state.nome,
-				'dados_dele.sobrenome': this.state.sobrenome
+				dados_dele: {
+					nome: this.state.nome,
+					sobrenome: this.state.sobrenome,
+					idade: this.state.idade,
+					avatar: this.state.avatar,
+					profissao: this.state.profissao,
+					escolaridade: this.state.escolaridade,
+					rg: this.state.rg,
+					cpf: this.state.cpf,
+					endereco: this.state.endereco
+				},
+				dados_outros: this.state.outrosData
 			})
 			.then(() => {
 				this.setState({ btnLoading: false });
@@ -72,6 +106,17 @@ export default class privacyScene extends Component<
 
 	public render() {
 		const { button, buttonDisabled, container } = styles;
+		const {
+			nome,
+			sobrenome,
+			idade,
+			avatar,
+			endereco,
+			escolaridade,
+			rg,
+			cpf,
+			profissao
+		} = this.state;
 
 		return this.state.loading ? (
 			<View style={container}>
@@ -80,16 +125,51 @@ export default class privacyScene extends Component<
 		) : (
 			<View style={container}>
 				<Button
-					buttonStyle={this.state.nome ? button : buttonDisabled}
-					title={'Nome'}
-					onPress={() => this.setState({ nome: !this.state.nome })}
+					buttonStyle={nome ? button : buttonDisabled}
+					title={this.props.userData.nome}
+					onPress={() => this.setState({ nome: !nome })}
 				/>
 				<Button
-					buttonStyle={this.state.sobrenome ? button : buttonDisabled}
-					title={'Sobrenome'}
+					buttonStyle={sobrenome ? button : buttonDisabled}
+					title={this.props.userData.sobrenome}
+					onPress={() => this.setState({ sobrenome: !sobrenome })}
+				/>
+				<Button
+					buttonStyle={idade ? button : buttonDisabled}
+					title={'Idade'}
+					onPress={() => this.setState({ idade: !idade })}
+				/>
+				<Button
+					buttonStyle={profissao ? button : buttonDisabled}
+					title={'Profissão'}
+					onPress={() => this.setState({ profissao: !profissao })}
+				/>
+				<Button
+					buttonStyle={escolaridade ? button : buttonDisabled}
+					title={'Escolaridade'}
 					onPress={() =>
-						this.setState({ sobrenome: !this.state.sobrenome })
+						this.setState({ escolaridade: !escolaridade })
 					}
+				/>
+				<Button
+					buttonStyle={rg ? button : buttonDisabled}
+					title={'RG'}
+					onPress={() => this.setState({ rg: !rg })}
+				/>
+				<Button
+					buttonStyle={cpf ? button : buttonDisabled}
+					title={'CPF'}
+					onPress={() => this.setState({ cpf: !cpf })}
+				/>
+				<Button
+					buttonStyle={endereco ? button : buttonDisabled}
+					title={'Endereço'}
+					onPress={() => this.setState({ endereco: !endereco })}
+				/>
+				<Button
+					buttonStyle={avatar ? button : buttonDisabled}
+					title={'Avatar'}
+					onPress={() => this.setState({ avatar: !avatar })}
 				/>
 				<Button
 					buttonStyle={button}

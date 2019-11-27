@@ -1,10 +1,11 @@
 export interface user {
 	nome: string;
 	sobrenome: string;
-	idade: number;
+	idade: string;
 	endereco: string;
-	cpf: number;
-	rg: number;
+	cpf: string;
+	rg: string;
 	profissao: string;
 	escolaridade: string;
+	avatar: string;
 }
