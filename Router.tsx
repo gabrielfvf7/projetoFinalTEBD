@@ -13,7 +13,7 @@ const AppRouter = () => (
 			<Scene
 				key="welcome"
 				component={welcomeScene}
-				initial={true}
+				//initial={true}
 				hideNavBar={true}
 			/>
 			<Scene key="avatar" component={avatarScene} hideNavBar={true} />
@@ -24,7 +24,12 @@ const AppRouter = () => (
 				hideNavBar={true}
 			/>
 			<Scene key="maisDados" component={maisDados} hideNavBar={true} />
-			<Scene key="graph" component={graphScene} hideNavBar={true} />
+			<Scene
+				key="graph"
+				initial
+				component={graphScene}
+				hideNavBar={true}
+			/>
 		</Stack>
 	</Router>
 );

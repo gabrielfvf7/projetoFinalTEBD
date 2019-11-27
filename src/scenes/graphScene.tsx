@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import firebase from 'firebase';
 import { PieChart } from 'react-native-svg-charts';
+import { Text } from 'react-native-elements';
 require('firebase/firestore');
 
 interface graphSceneProps {
@@ -11,6 +12,7 @@ interface graphSceneProps {
 interface graphSceneState {
 	loading: boolean;
 	dadosDeles: Array<number>;
+	cores: Array<string>;
 }
 
 export default class graphScene extends Component<
@@ -19,7 +21,8 @@ export default class graphScene extends Component<
 > {
 	public state: graphSceneState = {
 		loading: true,
-		dadosDeles: []
+		dadosDeles: [],
+		cores: []
 	};
 
 	public componentDidMount() {
@@ -47,27 +50,39 @@ export default class graphScene extends Component<
 			})
 			.catch(erro => console.log(erro))
 			.finally(() => {
-				this.setState({ dadosDeles: data, loading: false });
-				console.log(data);
+				this.setState({
+					dadosDeles: data,
+					loading: false
+				});
+				this.setCores();
 			});
+	}
+
+	public randomColor = () =>
+		('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(
+			0,
+			7
+		);
+
+	public setCores() {
+		var cor: Array<string> = ['', '', '', '', '', '', '', '', ''];
+
+		for (var i = 0; i < 9; i++) {
+			cor[i] = this.randomColor();
+		}
+		this.setState({ cores: cor });
 	}
 
 	public render() {
 		const { container } = styles;
 		const data = this.state.dadosDeles;
-		const randomColor = () =>
-			(
-				'#' +
-				((Math.random() * 0xffffff) << 0).toString(16) +
-				'000000'
-			).slice(0, 7);
 
 		const pieData = data
 			.filter(value => value > 0)
 			.map((value, index) => ({
 				value,
 				svg: {
-					fill: randomColor(),
+					fill: this.state.cores[index],
 					onPress: () => console.log('press ', index)
 				},
 				key: `pie-${index}`
@@ -78,15 +93,25 @@ export default class graphScene extends Component<
 				<ActivityIndicator />
 			</View>
 		) : (
-			<PieChart
-				style={{
-					height: 200,
-					flex: 1,
-					marginHorizontal: 20
-				}}
-				data={pieData}
-				innerRadius={0}
-			/>
+			<View>
+				<PieChart
+					style={{
+						height: 200,
+						marginHorizontal: 20
+					}}
+					data={pieData}
+					innerRadius={0}
+				/>
+				<Text
+					style={{
+						color: this.state.cores[0],
+						alignSelf: 'center',
+						justifyContent: 'center'
+					}}
+				>
+					{'avatar: ' + this.state.dadosDeles[0]}
+				</Text>
+			</View>
 		);
 	}
 }
