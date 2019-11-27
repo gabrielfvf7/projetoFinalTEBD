@@ -75,7 +75,7 @@ export default class avatarScene extends Component<
 					onBackdropPress={() =>
 						this.setState({ isModalOpen: false })
 					}
-					overlayStyle={{ borderRadius: 15, height: '50%' }}
+					overlayStyle={{ borderRadius: 15, height: 'auto' }}
 				>
 					<View>
 						<ListItem
