@@ -5,6 +5,7 @@ import avatarScene from './src/scenes/avatarScene';
 import privacyScene from './src/scenes/privacyScene';
 import privacyOutro from './src/scenes/privacyOutro';
 import maisDados from './src/scenes/maisDados';
+import graphScene from './src/scenes/graphScene';
 
 const AppRouter = () => (
 	<Router>
@@ -23,6 +24,7 @@ const AppRouter = () => (
 				hideNavBar={true}
 			/>
 			<Scene key="maisDados" component={maisDados} hideNavBar={true} />
+			<Scene key="graph" component={graphScene} hideNavBar={true} />
 		</Stack>
 	</Router>
 );

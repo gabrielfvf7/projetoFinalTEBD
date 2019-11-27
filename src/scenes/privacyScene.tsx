@@ -133,56 +133,86 @@ export default class privacyScene extends Component<
 			</View>
 		) : (
 			<View style={container}>
-				<Button
-					buttonStyle={nome ? button : buttonDisabled}
-					title={this.props.userData.nome}
-					onPress={() => this.setState({ nome: !nome })}
-				/>
-				<Button
-					buttonStyle={sobrenome ? button : buttonDisabled}
-					title={this.props.userData.sobrenome}
-					onPress={() => this.setState({ sobrenome: !sobrenome })}
-				/>
-				<Button
-					buttonStyle={idade ? button : buttonDisabled}
-					title={this.props.userData.idade}
-					onPress={() => this.setState({ idade: !idade })}
-				/>
-				<Button
-					buttonStyle={profissao ? button : buttonDisabled}
-					title={this.props.userData.profissao}
-					onPress={() => this.setState({ profissao: !profissao })}
-				/>
-				<Button
-					buttonStyle={escolaridade ? button : buttonDisabled}
-					title={this.props.userData.escolaridade}
-					onPress={() =>
-						this.setState({ escolaridade: !escolaridade })
-					}
-				/>
-				<Button
-					buttonStyle={rg ? button : buttonDisabled}
-					title={this.props.userData.rg}
-					onPress={() => this.setState({ rg: !rg })}
-				/>
-				<Button
-					buttonStyle={cpf ? button : buttonDisabled}
-					title={this.props.userData.cpf}
-					onPress={() => this.setState({ cpf: !cpf })}
-				/>
-				<Button
-					buttonStyle={endereco ? button : buttonDisabled}
-					title={this.props.userData.endereco}
-					onPress={() => this.setState({ endereco: !endereco })}
-				/>
 				<Avatar
 					rounded
 					size="xlarge"
 					source={{ uri: avatar ? this.props.userData.avatar : null }}
 					onPress={() => this.setState({ avatar: !avatar })}
 				/>
+				<View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
+					<Button
+						buttonStyle={[
+							nome ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
+						title={this.props.userData.nome}
+						onPress={() => this.setState({ nome: !nome })}
+					/>
+					<Button
+						buttonStyle={sobrenome ? button : buttonDisabled}
+						title={this.props.userData.sobrenome}
+						onPress={() => this.setState({ sobrenome: !sobrenome })}
+					/>
+				</View>
 				<Button
-					buttonStyle={button}
+					buttonStyle={idade ? button : buttonDisabled}
+					title={this.props.userData.idade + ' anos'}
+					onPress={() => this.setState({ idade: !idade })}
+				/>
+				<View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
+					<Button
+						buttonStyle={[
+							profissao ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
+						title={this.props.userData.profissao}
+						onPress={() => this.setState({ profissao: !profissao })}
+					/>
+					<Button
+						buttonStyle={escolaridade ? button : buttonDisabled}
+						title={this.props.userData.escolaridade}
+						onPress={() =>
+							this.setState({ escolaridade: !escolaridade })
+						}
+					/>
+				</View>
+				<View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
+					<Button
+						buttonStyle={[
+							rg ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
+						title={'RG: ' + this.props.userData.rg}
+						onPress={() => this.setState({ rg: !rg })}
+					/>
+					<Button
+						buttonStyle={cpf ? button : buttonDisabled}
+						title={'CPF: ' + this.props.userData.cpf}
+						onPress={() => this.setState({ cpf: !cpf })}
+					/>
+				</View>
+				<Button
+					buttonStyle={[endereco ? button : buttonDisabled, {margin: 10}]}
+					title={'Endereço: ' + this.props.userData.endereco}
+					onPress={() => this.setState({ endereco: !endereco })}
+				/>
+				<Button
+					buttonStyle={[button, {margin: 10}]}
 					title={'Enviar'}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}

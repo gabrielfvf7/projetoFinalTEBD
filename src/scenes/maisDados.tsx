@@ -66,6 +66,7 @@ export default class maisDados extends Component<maisDadosProps> {
 						inputContainerStyle={input}
 						placeholderTextColor={'white'}
 						inputStyle={{ color: 'white' }}
+						keyboardType={'numeric'}
 						placeholder={'RG'}
 						onChangeText={(rg: string) => this.setState({ rg })}
 						value={rg}
@@ -74,6 +75,7 @@ export default class maisDados extends Component<maisDadosProps> {
 						inputContainerStyle={input}
 						placeholderTextColor={'white'}
 						inputStyle={{ color: 'white' }}
+						keyboardType={'numeric'}
 						placeholder={'CPF'}
 						onChangeText={(cpf: string) => this.setState({ cpf })}
 						value={cpf}
