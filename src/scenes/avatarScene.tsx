@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, KeyboardAvoidingView } from 'react-native';
 import {
 	Input,
 	Button,
@@ -69,77 +69,81 @@ export default class avatarScene extends Component<
 		const { container, input } = styles;
 
 		return (
-			<View style={container}>
-				<Overlay
-					isVisible={isModalOpen}
-					onBackdropPress={() =>
-						this.setState({ isModalOpen: false })
-					}
-					overlayStyle={{ borderRadius: 15, height: 'auto' }}
-				>
-					<View>
-						<ListItem
-							title={'Tirar foto'}
-							onPress={() => this.escolheImagem('tirar')}
-						/>
-					</View>
-					<Divider />
-					<View>
-						<ListItem
-							title={'Escolher imagem da galeria'}
-							onPress={() => this.escolheImagem('escolher')}
-						/>
-					</View>
-				</Overlay>
-				<Avatar
-					rounded
-					size="xlarge"
-					source={{ uri: avatar }}
-					onPress={() => this.setState({ isModalOpen: true })}
-				/>
-				<Input
-					inputContainerStyle={input}
-					placeholderTextColor={'white'}
-					inputStyle={{ color: 'white' }}
-					placeholder={'Nome'}
-					onChangeText={(nome: string) => this.setState({ nome })}
-					value={nome}
-				/>
-				<Input
-					inputContainerStyle={input}
-					placeholderTextColor={'white'}
-					inputStyle={{ color: 'white' }}
-					placeholder={'Sobrenome'}
-					onChangeText={(sobrenome: string) =>
-						this.setState({ sobrenome })
-					}
-					value={sobrenome}
-				/>
-				<Input
-					inputContainerStyle={input}
-					placeholderTextColor={'white'}
-					inputStyle={{ color: 'white' }}
-					placeholder={'Idade'}
-					keyboardType={'numeric'}
-					onChangeText={(idade: string) => this.setState({ idade })}
-					value={idade}
-				/>
-				<Button
-					title={'Próximo'}
-					buttonStyle={{ marginTop: 15 }}
-					onPress={() =>
-						Actions.maisDados({
-							idDoc: this.props.idDoc,
-							userData: {
-								nome,
-								sobrenome,
-								idade,
-								avatar
-							}
-						})
-					}
-				/>
-			</View>
+			<KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+				<View style={container}>
+					<Overlay
+						isVisible={isModalOpen}
+						onBackdropPress={() =>
+							this.setState({ isModalOpen: false })
+						}
+						overlayStyle={{ borderRadius: 15, height: 'auto' }}
+					>
+						<View>
+							<ListItem
+								title={'Tirar foto'}
+								onPress={() => this.escolheImagem('tirar')}
+							/>
+						</View>
+						<Divider />
+						<View>
+							<ListItem
+								title={'Escolher imagem da galeria'}
+								onPress={() => this.escolheImagem('escolher')}
+							/>
+						</View>
+					</Overlay>
+					<Avatar
+						rounded
+						size="xlarge"
+						source={{ uri: avatar }}
+						onPress={() => this.setState({ isModalOpen: true })}
+					/>
+					<Input
+						inputContainerStyle={input}
+						placeholderTextColor={'white'}
+						inputStyle={{ color: 'white' }}
+						placeholder={'Nome'}
+						onChangeText={(nome: string) => this.setState({ nome })}
+						value={nome}
+					/>
+					<Input
+						inputContainerStyle={input}
+						placeholderTextColor={'white'}
+						inputStyle={{ color: 'white' }}
+						placeholder={'Sobrenome'}
+						onChangeText={(sobrenome: string) =>
+							this.setState({ sobrenome })
+						}
+						value={sobrenome}
+					/>
+					<Input
+						inputContainerStyle={input}
+						placeholderTextColor={'white'}
+						inputStyle={{ color: 'white' }}
+						placeholder={'Idade'}
+						keyboardType={'numeric'}
+						onChangeText={(idade: string) =>
+							this.setState({ idade })
+						}
+						value={idade}
+					/>
+					<Button
+						title={'Próximo'}
+						buttonStyle={{ marginTop: 15 }}
+						onPress={() =>
+							Actions.maisDados({
+								idDoc: this.props.idDoc,
+								userData: {
+									nome,
+									sobrenome,
+									idade,
+									avatar
+								}
+							})
+						}
+					/>
+				</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }
