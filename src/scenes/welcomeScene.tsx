@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		//paddingHorizontal: 25,
 		height: 55,
-		width: 50
+		width: 75
 	}
 });

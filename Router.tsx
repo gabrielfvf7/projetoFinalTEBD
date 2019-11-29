@@ -14,14 +14,14 @@ const AppRouter = () => (
 			<Scene
 				key="welcome"
 				component={welcomeScene}
-				initial={true}
+				//initial
 				hideNavBar
 			/>
 			<Scene key="avatar" component={avatarScene} hideNavBar />
 			<Scene key="privacy" component={privacyScene} hideNavBar />
 			<Scene key="privacyOutro" component={privacyOutro} hideNavBar />
 			<Scene key="maisDados" component={maisDados} hideNavBar />
-			<Scene key="graph" component={graphScene} hideNavBar />
+			<Scene key="graph" initial component={graphScene} hideNavBar />
 			<Scene key="graphOther" component={graphOtherScene} hideNavBar />
 		</Stack>
 	</Router>

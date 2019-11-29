@@ -94,7 +94,7 @@ export default class graphScene extends Component<
 				<ActivityIndicator />
 			</View>
 		) : (
-			<View>
+			<View style={{ marginTop: 25 }}>
 				<StatusBar hidden />
 				<Text
 					style={{
@@ -123,106 +123,113 @@ export default class graphScene extends Component<
 						alignSelf: 'center',
 						alignContent: 'center',
 						alignItems: 'center',
-						marginTop: 10
+						marginTop: 10,
+						flexDirection: 'row'
 					}}
 				>
-					<Text
+					<View
 						style={{
-							color: this.state.cores[0],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 22
+							flexDirection: 'column',
+							justifyContent: 'flex-start',
+							marginRight: 20
 						}}
 					>
-						{'Avatar: ' + this.state.dadosDeles[0]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[5],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							marginRight: 15,
-							fontSize: 22
-						}}
-					>
-						{'Nome: ' + this.state.dadosDeles[5]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[8],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 22
-						}}
-					>
-						{'Sobrenome: ' + this.state.dadosDeles[8]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[4],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 22
-						}}
-					>
-						{'Idade: ' + this.state.dadosDeles[4]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[3],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 22
-						}}
-					>
-						{'Escolaridade: ' + this.state.dadosDeles[3]}
-					</Text>
-
-					<Text
-						style={{
-							color: this.state.cores[6],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 22
-						}}
-					>
-						{'Profissão: ' + this.state.dadosDeles[6]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[2],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 2225
-						}}
-					>
-						{'Endereço: ' + this.state.dadosDeles[2]}
-					</Text>
-					<View style={{ flexDirection: 'row' }}>
 						<Text
 							style={{
-								color: this.state.cores[1],
-								alignSelf: 'center',
-								justifyContent: 'center',
-								fontSize: 22,
-								marginRight: 15
-							}}
-						>
-							{'CPF: ' + this.state.dadosDeles[1]}
-						</Text>
-						<Text
-							style={{
-								color: this.state.cores[7],
-								alignSelf: 'center',
-								justifyContent: 'center',
+								color: this.state.cores[0],
 								fontSize: 22
 							}}
 						>
-							{'RG: ' + this.state.dadosDeles[7]}
+							{'Avatar: ' + this.state.dadosDeles[0]}
 						</Text>
+						<Text
+							style={{
+								color: this.state.cores[5],
+								marginRight: 15,
+								fontSize: 22
+							}}
+						>
+							{'Nome: ' + this.state.dadosDeles[5]}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[8],
+								fontSize: 22
+							}}
+						>
+							{'Sobrenome: ' + this.state.dadosDeles[8]}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[4],
+								fontSize: 22
+							}}
+						>
+							{'Idade: ' + this.state.dadosDeles[4]}
+						</Text>
+					</View>
+					<View
+						style={{
+							flexDirection: 'column'
+						}}
+					>
+						<Text
+							style={{
+								color: this.state.cores[3],
+								fontSize: 22
+							}}
+						>
+							{'Escolaridade: ' + this.state.dadosDeles[3]}
+						</Text>
+
+						<Text
+							style={{
+								color: this.state.cores[6],
+								fontSize: 22
+							}}
+						>
+							{'Profissão: ' + this.state.dadosDeles[6]}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[2],
+								fontSize: 22
+							}}
+						>
+							{'Endereço: ' + this.state.dadosDeles[2]}
+						</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<Text
+								style={{
+									color: this.state.cores[1],
+									fontSize: 22,
+									marginRight: 15
+								}}
+							>
+								{'CPF: ' + this.state.dadosDeles[1]}
+							</Text>
+							<Text
+								style={{
+									color: this.state.cores[7],
+									fontSize: 22
+								}}
+							>
+								{'RG: ' + this.state.dadosDeles[7]}
+							</Text>
+						</View>
 					</View>
 				</View>
 				<Button
+					buttonStyle={{
+						alignSelf: 'center',
+						borderRadius: 8,
+						marginTop: 25,
+						width: '50%'
+					}}
+					titleStyle={{
+						fontSize: 18,
+						fontWeight: 'bold'
+					}}
 					title={'Ver próximo'}
 					onPress={() => Actions.graphOther()}
 				/>
