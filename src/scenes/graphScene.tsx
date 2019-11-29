@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
 import firebase from 'firebase';
 import { PieChart } from 'react-native-svg-charts';
 import { Text } from 'react-native-elements';
@@ -94,23 +94,133 @@ export default class graphScene extends Component<
 			</View>
 		) : (
 			<View>
-				<PieChart
-					style={{
-						height: 200,
-						marginHorizontal: 20
-					}}
-					data={pieData}
-					innerRadius={0}
-				/>
+				<StatusBar hidden />
 				<Text
 					style={{
-						color: this.state.cores[0],
+						marginTop: 5,
+						marginLeft: '20%',
+						marginRight: '10%',
+						fontSize: 30,
 						alignSelf: 'center',
-						justifyContent: 'center'
+						alignContent: 'center',
+						alignItems: 'center'
 					}}
 				>
-					{'avatar: ' + this.state.dadosDeles[0]}
+					Dados próprios do usuário que ele escolheu mostrar
 				</Text>
+				<PieChart
+					style={{
+						height: 230,
+						marginHorizontal: 20,
+						marginTop: 20
+					}}
+					data={pieData}
+					innerRadius={20}
+				/>
+				<View
+					style={{
+						alignSelf: 'center',
+						alignContent: 'center',
+						alignItems: 'center',
+						marginTop: 10
+					}}
+				>
+					<Text
+						style={{
+							color: this.state.cores[0],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Avatar: ' + this.state.dadosDeles[0]}
+					</Text>
+					<Text
+						style={{
+							color: this.state.cores[5],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							marginRight: 15,
+							fontSize: 25
+						}}
+					>
+						{'Nome: ' + this.state.dadosDeles[5]}
+					</Text>
+					<Text
+						style={{
+							color: this.state.cores[8],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Sobrenome: ' + this.state.dadosDeles[8]}
+					</Text>
+					<Text
+						style={{
+							color: this.state.cores[4],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Idade: ' + this.state.dadosDeles[4]}
+					</Text>
+					<Text
+						style={{
+							color: this.state.cores[3],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Escolaridade: ' + this.state.dadosDeles[3]}
+					</Text>
+
+					<Text
+						style={{
+							color: this.state.cores[6],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Profissão: ' + this.state.dadosDeles[6]}
+					</Text>
+					<Text
+						style={{
+							color: this.state.cores[2],
+							alignSelf: 'center',
+							justifyContent: 'center',
+							fontSize: 25
+						}}
+					>
+						{'Endereço: ' + this.state.dadosDeles[2]}
+					</Text>
+					<View style={{ flexDirection: 'row' }}>
+						<Text
+							style={{
+								color: this.state.cores[1],
+								alignSelf: 'center',
+								justifyContent: 'center',
+								fontSize: 25,
+								marginRight: 15
+							}}
+						>
+							{'CPF: ' + this.state.dadosDeles[1]}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[7],
+								alignSelf: 'center',
+								justifyContent: 'center',
+								fontSize: 25
+							}}
+						>
+							{'RG: ' + this.state.dadosDeles[7]}
+						</Text>
+					</View>
+				</View>
 			</View>
 		);
 	}
