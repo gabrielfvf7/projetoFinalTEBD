@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Button, Avatar } from 'react-native-elements';
+import { Button, Avatar, Text } from 'react-native-elements';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import { user } from '../interfaces/user';
@@ -133,6 +133,20 @@ export default class privacyScene extends Component<
 			</View>
 		) : (
 			<View style={container}>
+				<Text
+					style={{
+						marginLeft: '10%',
+						marginRight: '10%',
+						marginBottom: 15,
+						fontSize: 20,
+						alignSelf: 'center',
+						alignContent: 'center',
+						alignItems: 'center'
+					}}
+				>
+					Quais dos seguintes dados você estaria disposto a mostrar
+					livremente numa rede social aberta? (Clique para mudar)
+				</Text>
 				<Avatar
 					rounded
 					size="xlarge"
@@ -207,12 +221,15 @@ export default class privacyScene extends Component<
 					/>
 				</View>
 				<Button
-					buttonStyle={[endereco ? button : buttonDisabled, {margin: 10}]}
+					buttonStyle={[
+						endereco ? button : buttonDisabled,
+						{ margin: 10 }
+					]}
 					title={'Endereço: ' + this.props.userData.endereco}
 					onPress={() => this.setState({ endereco: !endereco })}
 				/>
 				<Button
-					buttonStyle={[button, {margin: 10}]}
+					buttonStyle={[button, { margin: 10 }]}
 					title={'Enviar'}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}

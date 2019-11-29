@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { Button, Avatar } from 'react-native-elements';
+import { Button, Avatar, Text } from 'react-native-elements';
 import firebase from 'firebase';
 import { userBol } from '../interfaces/userBol';
 import { Actions } from 'react-native-router-flux';
@@ -98,6 +98,20 @@ export default class privacyOutro extends Component<
 			</View>
 		) : (
 			<View style={container}>
+				<Text
+					style={{
+						marginLeft: '10%',
+						marginRight: '10%',
+						marginBottom: 15,
+						fontSize: 20,
+						alignSelf: 'center',
+						alignContent: 'center',
+						alignItems: 'center'
+					}}
+				>
+					E quais dos dados a seguir você gostaria de ver em um outro
+					usuário?
+				</Text>
 				<Avatar
 					rounded
 					size="xlarge"

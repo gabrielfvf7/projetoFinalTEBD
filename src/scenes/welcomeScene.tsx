@@ -79,7 +79,7 @@ export default class welcomeScene extends Component<
 				<Button
 					buttonStyle={button}
 					title={'OK!'}
-					titleStyle={{ fontSize: 20 }}
+					titleStyle={{ fontSize: 25 }}
 					onPress={() => Actions.avatar({ idDoc: this.state.idDoc })}
 				/>
 			</View>
@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		borderRadius: 8,
-		paddingHorizontal: 25
+		//paddingHorizontal: 25,
+		height: 55,
+		width: 50
 	}
 });

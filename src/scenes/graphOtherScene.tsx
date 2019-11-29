@@ -2,27 +2,26 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
 import firebase from 'firebase';
 import { PieChart } from 'react-native-svg-charts';
-import { Text, Button } from 'react-native-elements';
-import { Actions } from 'react-native-router-flux';
+import { Text } from 'react-native-elements';
 require('firebase/firestore');
 
-interface graphSceneProps {
+interface graphOtherSceneProps {
 	idDoc: string;
 }
 
-interface graphSceneState {
+interface graphOtherSceneState {
 	loading: boolean;
-	dadosDeles: Array<number>;
+	dadosOther: Array<number>;
 	cores: Array<string>;
 }
 
 export default class graphScene extends Component<
-	graphSceneProps,
-	graphSceneState
+	graphOtherSceneProps,
+	graphOtherSceneState
 > {
-	public state: graphSceneState = {
+	public state: graphOtherSceneState = {
 		loading: true,
-		dadosDeles: [],
+		dadosOther: [],
 		cores: []
 	};
 
@@ -41,7 +40,7 @@ export default class graphScene extends Component<
 		ref.get()
 			.then(snapshot => {
 				snapshot.forEach(doc => {
-					const user: Object = doc.data().dados_dele;
+					const user: Object = doc.data().dados_outros;
 					var i = 0;
 					for (var p in user) {
 						user[p] ? (data[i] += 1) : null;
@@ -52,7 +51,7 @@ export default class graphScene extends Component<
 			.catch(erro => console.log(erro))
 			.finally(() => {
 				this.setState({
-					dadosDeles: data,
+					dadosOther: data,
 					loading: false
 				});
 				this.setCores();
@@ -76,7 +75,7 @@ export default class graphScene extends Component<
 
 	public render() {
 		const { container } = styles;
-		const data = this.state.dadosDeles;
+		const data = this.state.dadosOther;
 
 		const pieData = data
 			.filter(value => value > 0)
@@ -107,7 +106,7 @@ export default class graphScene extends Component<
 						alignItems: 'center'
 					}}
 				>
-					Dados próprios do usuário que ele escolheu mostrar
+					Dados dos outros que o usuário escolheu visualizar
 				</Text>
 				<PieChart
 					style={{
@@ -131,10 +130,10 @@ export default class graphScene extends Component<
 							color: this.state.cores[0],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Avatar: ' + this.state.dadosDeles[0]}
+						{'Avatar: ' + this.state.dadosOther[0]}
 					</Text>
 					<Text
 						style={{
@@ -142,40 +141,40 @@ export default class graphScene extends Component<
 							alignSelf: 'center',
 							justifyContent: 'center',
 							marginRight: 15,
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Nome: ' + this.state.dadosDeles[5]}
+						{'Nome: ' + this.state.dadosOther[5]}
 					</Text>
 					<Text
 						style={{
 							color: this.state.cores[8],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Sobrenome: ' + this.state.dadosDeles[8]}
+						{'Sobrenome: ' + this.state.dadosOther[8]}
 					</Text>
 					<Text
 						style={{
 							color: this.state.cores[4],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Idade: ' + this.state.dadosDeles[4]}
+						{'Idade: ' + this.state.dadosOther[4]}
 					</Text>
 					<Text
 						style={{
 							color: this.state.cores[3],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Escolaridade: ' + this.state.dadosDeles[3]}
+						{'Escolaridade: ' + this.state.dadosOther[3]}
 					</Text>
 
 					<Text
@@ -183,20 +182,20 @@ export default class graphScene extends Component<
 							color: this.state.cores[6],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 22
+							fontSize: 25
 						}}
 					>
-						{'Profissão: ' + this.state.dadosDeles[6]}
+						{'Profissão: ' + this.state.dadosOther[6]}
 					</Text>
 					<Text
 						style={{
 							color: this.state.cores[2],
 							alignSelf: 'center',
 							justifyContent: 'center',
-							fontSize: 2225
+							fontSize: 25
 						}}
 					>
-						{'Endereço: ' + this.state.dadosDeles[2]}
+						{'Endereço: ' + this.state.dadosOther[2]}
 					</Text>
 					<View style={{ flexDirection: 'row' }}>
 						<Text
@@ -204,28 +203,24 @@ export default class graphScene extends Component<
 								color: this.state.cores[1],
 								alignSelf: 'center',
 								justifyContent: 'center',
-								fontSize: 22,
+								fontSize: 25,
 								marginRight: 15
 							}}
 						>
-							{'CPF: ' + this.state.dadosDeles[1]}
+							{'CPF: ' + this.state.dadosOther[1]}
 						</Text>
 						<Text
 							style={{
 								color: this.state.cores[7],
 								alignSelf: 'center',
 								justifyContent: 'center',
-								fontSize: 22
+								fontSize: 25
 							}}
 						>
-							{'RG: ' + this.state.dadosDeles[7]}
+							{'RG: ' + this.state.dadosOther[7]}
 						</Text>
 					</View>
 				</View>
-				<Button
-					title={'Ver próximo'}
-					onPress={() => Actions.graphOther()}
-				/>
 			</View>
 		);
 	}
