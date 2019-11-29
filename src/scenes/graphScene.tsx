@@ -14,6 +14,7 @@ interface graphSceneState {
 	loading: boolean;
 	dadosDeles: Array<number>;
 	cores: Array<string>;
+	qtd: number;
 }
 
 export default class graphScene extends Component<
@@ -23,7 +24,8 @@ export default class graphScene extends Component<
 	public state: graphSceneState = {
 		loading: true,
 		dadosDeles: [],
-		cores: []
+		cores: [],
+		qtd: 0
 	};
 
 	public componentDidMount() {
@@ -38,9 +40,11 @@ export default class graphScene extends Component<
 		const ref = firestore.collection('users');
 
 		var data: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var qtd: number = 0;
 		ref.get()
 			.then(snapshot => {
 				snapshot.forEach(doc => {
+					qtd++;
 					const user: Object = doc.data().dados_dele;
 					var i = 0;
 					for (var p in user) {
@@ -53,8 +57,10 @@ export default class graphScene extends Component<
 			.finally(() => {
 				this.setState({
 					dadosDeles: data,
-					loading: false
+					loading: false,
+					qtd
 				});
+				this.setPorcento();
 				this.setCores();
 			});
 	}
@@ -72,6 +78,15 @@ export default class graphScene extends Component<
 			cor[i] = this.randomColor();
 		}
 		this.setState({ cores: cor });
+	}
+
+	public setPorcento() {
+		const { qtd } = this.state;
+		var data = this.state.dadosDeles;
+		for (var i = 0; i < data.length; i++) {
+			data[i] = Math.round((data[i] * 100) / qtd);
+		}
+		this.setState({ dadosDeles: data });
 	}
 
 	public render() {
@@ -99,15 +114,16 @@ export default class graphScene extends Component<
 				<Text
 					style={{
 						marginTop: 5,
-						marginLeft: '20%',
-						marginRight: '10%',
+						marginLeft: 15,
+						marginRight: 15,
 						fontSize: 30,
 						alignSelf: 'center',
 						alignContent: 'center',
 						alignItems: 'center'
 					}}
 				>
-					Dados próprios do usuário que ele escolheu mostrar
+					Porcentagem de usuários que quiseram mostrar cada dado
+					próprio:
 				</Text>
 				<PieChart
 					style={{
@@ -149,7 +165,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Nome: ' + this.state.dadosDeles[5]}
+							{`Nome: ${this.state.dadosDeles[5]}%`}
 						</Text>
 						<Text
 							style={{
@@ -157,7 +173,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Sobrenome: ' + this.state.dadosDeles[8]}
+							{`Sobrenome: ${this.state.dadosDeles[8]}%`}
 						</Text>
 						<Text
 							style={{
@@ -165,7 +181,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Idade: ' + this.state.dadosDeles[4]}
+							{`Idade: ${this.state.dadosDeles[4]}%`}
 						</Text>
 					</View>
 					<View
@@ -179,7 +195,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Escolaridade: ' + this.state.dadosDeles[3]}
+							{`Escolaridade: ${this.state.dadosDeles[3]}%`}
 						</Text>
 
 						<Text
@@ -188,7 +204,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Profissão: ' + this.state.dadosDeles[6]}
+							{`Profissão: ${this.state.dadosDeles[6]}%`}
 						</Text>
 						<Text
 							style={{
@@ -196,7 +212,7 @@ export default class graphScene extends Component<
 								fontSize: 22
 							}}
 						>
-							{'Endereço: ' + this.state.dadosDeles[2]}
+							{`Endereço: ${this.state.dadosDeles[2]}%`}
 						</Text>
 						<View style={{ flexDirection: 'row' }}>
 							<Text
@@ -206,7 +222,7 @@ export default class graphScene extends Component<
 									marginRight: 15
 								}}
 							>
-								{'CPF: ' + this.state.dadosDeles[1]}
+								{`CPF: ${this.state.dadosDeles[1]}%`}
 							</Text>
 							<Text
 								style={{
@@ -214,7 +230,7 @@ export default class graphScene extends Component<
 									fontSize: 22
 								}}
 							>
-								{'RG: ' + this.state.dadosDeles[7]}
+								{`RG: ${this.state.dadosDeles[7]}%`}
 							</Text>
 						</View>
 					</View>

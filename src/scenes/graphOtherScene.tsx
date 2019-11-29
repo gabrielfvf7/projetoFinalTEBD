@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
 import firebase from 'firebase';
 import { PieChart } from 'react-native-svg-charts';
-import { Text } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements';
 require('firebase/firestore');
 
 interface graphOtherSceneProps {
@@ -13,6 +13,7 @@ interface graphOtherSceneState {
 	loading: boolean;
 	dadosOther: Array<number>;
 	cores: Array<string>;
+	qtd: number;
 }
 
 export default class graphScene extends Component<
@@ -22,7 +23,8 @@ export default class graphScene extends Component<
 	public state: graphOtherSceneState = {
 		loading: true,
 		dadosOther: [],
-		cores: []
+		cores: [],
+		qtd: 0
 	};
 
 	public componentDidMount() {
@@ -37,9 +39,11 @@ export default class graphScene extends Component<
 		const ref = firestore.collection('users');
 
 		var data: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var qtd: number = 0;
 		ref.get()
 			.then(snapshot => {
 				snapshot.forEach(doc => {
+					qtd++;
 					const user: Object = doc.data().dados_outros;
 					var i = 0;
 					for (var p in user) {
@@ -52,8 +56,10 @@ export default class graphScene extends Component<
 			.finally(() => {
 				this.setState({
 					dadosOther: data,
-					loading: false
+					loading: false,
+					qtd
 				});
+				this.setPorcento();
 				this.setCores();
 			});
 	}
@@ -71,6 +77,15 @@ export default class graphScene extends Component<
 			cor[i] = this.randomColor();
 		}
 		this.setState({ cores: cor });
+	}
+
+	public setPorcento() {
+		const { qtd } = this.state;
+		var data = this.state.dadosOther;
+		for (var i = 0; i < data.length; i++) {
+			data[i] = Math.round((data[i] * 100) / qtd);
+		}
+		this.setState({ dadosOther: data });
 	}
 
 	public render() {
@@ -93,20 +108,21 @@ export default class graphScene extends Component<
 				<ActivityIndicator />
 			</View>
 		) : (
-			<View>
+			<View style={{ marginTop: 25 }}>
 				<StatusBar hidden />
 				<Text
 					style={{
 						marginTop: 5,
-						marginLeft: '20%',
-						marginRight: '10%',
+						marginLeft: 15,
+						marginRight: 15,
 						fontSize: 30,
 						alignSelf: 'center',
 						alignContent: 'center',
 						alignItems: 'center'
 					}}
 				>
-					Dados dos outros que o usuário escolheu visualizar
+					Porcentagem de usuários que quiseram visualizar cada dado
+					das outras pessoas:
 				</Text>
 				<PieChart
 					style={{
@@ -122,105 +138,116 @@ export default class graphScene extends Component<
 						alignSelf: 'center',
 						alignContent: 'center',
 						alignItems: 'center',
-						marginTop: 10
+						marginTop: 10,
+						flexDirection: 'row'
 					}}
 				>
-					<Text
+					<View
 						style={{
-							color: this.state.cores[0],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
+							flexDirection: 'column',
+							justifyContent: 'flex-start',
+							marginRight: 20,
+							marginLeft: 15
 						}}
 					>
-						{'Avatar: ' + this.state.dadosOther[0]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[5],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							marginRight: 15,
-							fontSize: 25
-						}}
-					>
-						{'Nome: ' + this.state.dadosOther[5]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[8],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
-						}}
-					>
-						{'Sobrenome: ' + this.state.dadosOther[8]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[4],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
-						}}
-					>
-						{'Idade: ' + this.state.dadosOther[4]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[3],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
-						}}
-					>
-						{'Escolaridade: ' + this.state.dadosOther[3]}
-					</Text>
-
-					<Text
-						style={{
-							color: this.state.cores[6],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
-						}}
-					>
-						{'Profissão: ' + this.state.dadosOther[6]}
-					</Text>
-					<Text
-						style={{
-							color: this.state.cores[2],
-							alignSelf: 'center',
-							justifyContent: 'center',
-							fontSize: 25
-						}}
-					>
-						{'Endereço: ' + this.state.dadosOther[2]}
-					</Text>
-					<View style={{ flexDirection: 'row' }}>
 						<Text
 							style={{
-								color: this.state.cores[1],
-								alignSelf: 'center',
-								justifyContent: 'center',
-								fontSize: 25,
-								marginRight: 15
+								color: this.state.cores[0],
+								fontSize: 22
 							}}
 						>
-							{'CPF: ' + this.state.dadosOther[1]}
+							{'Avatar: ' + this.state.dadosOther[0]}
 						</Text>
 						<Text
 							style={{
-								color: this.state.cores[7],
-								alignSelf: 'center',
-								justifyContent: 'center',
-								fontSize: 25
+								color: this.state.cores[5],
+								marginRight: 15,
+								fontSize: 22
 							}}
 						>
-							{'RG: ' + this.state.dadosOther[7]}
+							{`Nome: ${this.state.dadosOther[5]}%`}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[8],
+								fontSize: 22
+							}}
+						>
+							{`Sobrenome: ${this.state.dadosOther[8]}%`}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[4],
+								fontSize: 22
+							}}
+						>
+							{`Idade: ${this.state.dadosOther[4]}%`}
 						</Text>
 					</View>
+					<View
+						style={{
+							flexDirection: 'column'
+						}}
+					>
+						<Text
+							style={{
+								color: this.state.cores[3],
+								fontSize: 22
+							}}
+						>
+							{`Escolaridade: ${this.state.dadosOther[3]}%`}
+						</Text>
+
+						<Text
+							style={{
+								color: this.state.cores[6],
+								fontSize: 22
+							}}
+						>
+							{`Profissão: ${this.state.dadosOther[6]}%`}
+						</Text>
+						<Text
+							style={{
+								color: this.state.cores[2],
+								fontSize: 22
+							}}
+						>
+							{`Endereço: ${this.state.dadosOther[2]}%`}
+						</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<Text
+								style={{
+									color: this.state.cores[1],
+									fontSize: 22,
+									marginRight: 10
+								}}
+							>
+								{`CPF: ${this.state.dadosOther[1]}%`}
+							</Text>
+							<Text
+								style={{
+									color: this.state.cores[7],
+									fontSize: 22
+								}}
+							>
+								{`RG: ${this.state.dadosOther[7]}%`}
+							</Text>
+						</View>
+					</View>
 				</View>
+				<Button
+					buttonStyle={{
+						alignSelf: 'center',
+						borderRadius: 8,
+						marginTop: 25,
+						width: '50%'
+					}}
+					titleStyle={{
+						fontSize: 18,
+						fontWeight: 'bold'
+					}}
+					title={'Ver próximo'}
+				/>
 			</View>
 		);
 	}
