@@ -84,6 +84,7 @@ export default class maisDados extends Component<maisDadosProps> {
 					<Button
 						title={'Próximo'}
 						buttonStyle={{ marginTop: 15 }}
+                        titleStyle={{ fontSize: 15 }}
 						onPress={() =>
 							Actions.privacy({
 								idDoc: this.props.idDoc,

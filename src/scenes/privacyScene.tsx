@@ -173,11 +173,25 @@ export default class privacyScene extends Component<
 						onPress={() => this.setState({ sobrenome: !sobrenome })}
 					/>
 				</View>
+                <View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
 				<Button
-					buttonStyle={idade ? button : buttonDisabled}
+					buttonStyle={[idade ? button : buttonDisabled, {marginRight: 10}]}
 					title={this.props.userData.idade + ' anos'}
 					onPress={() => this.setState({ idade: !idade })}
 				/>
+                <Button
+					buttonStyle={[
+						endereco ? button : buttonDisabled,
+					]}
+					title={'Endereço: ' + this.props.userData.endereco}
+					onPress={() => this.setState({ endereco: !endereco })}
+				/>
+                </View>
 				<View
 					style={{
 						margin: 10,
@@ -220,17 +234,11 @@ export default class privacyScene extends Component<
 						onPress={() => this.setState({ cpf: !cpf })}
 					/>
 				</View>
+				
 				<Button
-					buttonStyle={[
-						endereco ? button : buttonDisabled,
-						{ margin: 10 }
-					]}
-					title={'Endereço: ' + this.props.userData.endereco}
-					onPress={() => this.setState({ endereco: !endereco })}
-				/>
-				<Button
-					buttonStyle={[button, { margin: 10 }]}
-					title={'Enviar'}
+					buttonStyle={[button, { margin: 20 }]}
+					title={'ENVIAR'}
+                    titleStyle={{ fontSize: 25}}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}
 				/>

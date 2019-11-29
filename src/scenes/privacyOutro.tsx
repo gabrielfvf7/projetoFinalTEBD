@@ -115,7 +115,7 @@ export default class privacyOutro extends Component<
 				<Avatar
 					rounded
 					size="xlarge"
-					source={{ uri: null }}
+					source={{ uri: avatar ? 'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png' : null }}
 					onPress={() => this.setState({ avatar: !avatar })}
 				/>
 				<View
@@ -125,7 +125,7 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-						buttonStyle={nome ? button : buttonDisabled}
+                            buttonStyle={[nome ? button : buttonDisabled, { marginRight: 10 }]}
 						title={'Nome'}
 						onPress={() => this.setState({ nome: !nome })}
 					/>
@@ -135,11 +135,25 @@ export default class privacyOutro extends Component<
 						onPress={() => this.setState({ sobrenome: !sobrenome })}
 					/>
 				</View>
+                <View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
 				<Button
-					buttonStyle={idade ? button : buttonDisabled}
+					buttonStyle={[idade ? button : buttonDisabled, {marginRight: 10}]}
 					title={'Idade'}
 					onPress={() => this.setState({ idade: !idade })}
 				/>
+                <Button
+					buttonStyle={[
+						endereco ? button : buttonDisabled,
+					]}
+					title={'Endereço'}
+					onPress={() => this.setState({ endereco: !endereco })}
+				/>
+                </View>
 				<View
 					style={{
 						margin: 10,
@@ -147,7 +161,7 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-						buttonStyle={profissao ? button : buttonDisabled}
+						buttonStyle={[profissao ? button : buttonDisabled, { marginRight: 10 }]}
 						title={'Profissão'}
 						onPress={() => this.setState({ profissao: !profissao })}
 					/>
@@ -166,7 +180,7 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-						buttonStyle={rg ? button : buttonDisabled}
+						buttonStyle={[rg ? button : buttonDisabled, { marginRight: 10 }]}
 						title={'RG'}
 						onPress={() => this.setState({ rg: !rg })}
 					/>
@@ -176,17 +190,11 @@ export default class privacyOutro extends Component<
 						onPress={() => this.setState({ cpf: !cpf })}
 					/>
 				</View>
+				
 				<Button
-					buttonStyle={[
-						endereco ? button : buttonDisabled,
-						{ margin: 10 }
-					]}
-					title={'Endereço'}
-					onPress={() => this.setState({ endereco: !endereco })}
-				/>
-				<Button
-					buttonStyle={[button, { margin: 10 }]}
-					title={'Enviar'}
+					buttonStyle={[button, { margin: 20 }]}
+					title={'ENVIAR'}
+                    titleStyle={{ fontSize: 25}}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}
 				/>

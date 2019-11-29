@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import {
+	StyleSheet,
+	View,
+	ActivityIndicator,
+	ImageBackground
+} from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
@@ -66,23 +71,41 @@ export default class welcomeScene extends Component<
 				<ActivityIndicator size="large" />
 			</View>
 		) : (
-			<View style={container}>
-				<Text style={textoTitulo}>Olá, seja bem vindo! </Text>
-				<Text style={texto}>
-					Este é um pequeno aplicativo que visa realizar um
-					experimento sobre o uso de políticas de privacidade nos dias
-					de hoje. Será pedido para você inserir informações (não
-					precisam ser verdadeiras) que não serão salvas e realizar
-					escolhas.
-				</Text>
-				<Text style={textoTitulo}> Podemos começar? </Text>
-				<Button
-					buttonStyle={button}
-					title={'OK!'}
-					titleStyle={{ fontSize: 25 }}
-					onPress={() => Actions.avatar({ idDoc: this.state.idDoc })}
-				/>
-			</View>
+			<ImageBackground
+				source={require('../assets/imgs/background.png')}
+				style={{ width: '100%', height: '100%' }}
+			>
+				<View style={container}>
+					<View
+						style={{
+							backgroundColor: 'white',
+							borderColor: 'black',
+							borderWidth: 2,
+							borderRadius: 8,
+							marginHorizontal: 15,
+							marginBottom: 15
+						}}
+					>
+						<Text style={textoTitulo}>Olá, seja bem vindo! </Text>
+						<Text style={texto}>
+							Este é um pequeno aplicativo que visa realizar um
+							experimento sobre o uso de políticas de privacidade
+							nos dias de hoje. Será pedido para você inserir
+							informações (não precisam ser verdadeiras) que não
+							serão salvas e realizar escolhas.
+						</Text>
+						<Text style={textoTitulo}> Podemos começar? </Text>
+					</View>
+					<Button
+						buttonStyle={button}
+						title={'OK!'}
+						titleStyle={{ fontSize: 30 }}
+						onPress={() =>
+							Actions.avatar({ idDoc: this.state.idDoc })
+						}
+					/>
+				</View>
+			</ImageBackground>
 		);
 	}
 }
@@ -101,7 +124,6 @@ const firebaseConfig = {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'white',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
@@ -119,8 +141,9 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		borderRadius: 8,
-		//paddingHorizontal: 25,
-		height: 55,
-		width: 75
+		borderColor: 'black',
+		borderWidth: 2,
+		height: 75,
+		width: 95
 	}
 });
