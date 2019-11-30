@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, Text } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 interface maisDadosProps {
@@ -32,10 +32,30 @@ export default class maisDados extends Component<maisDadosProps> {
 		return (
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
 				<View style={container}>
+					<View
+						style={{
+							borderRadius: 8,
+							borderWidth: 3,
+							borderColor: 'black',
+							backgroundColor: 'white',
+							marginHorizontal: 10,
+							marginBottom: 10
+						}}
+					>
+						<Text
+							style={{
+								fontSize: 20,
+								marginHorizontal: 15
+							}}
+						>
+							E agora, precisa ainda preencher mais esses dados:
+						</Text>
+					</View>
+
 					<Input
 						inputContainerStyle={input}
-						placeholderTextColor={'white'}
-						inputStyle={{ color: 'white' }}
+						placeholderTextColor={'black'}
+						inputStyle={{ color: 'black' }}
 						placeholder={'Endereço'}
 						onChangeText={(endereco: string) =>
 							this.setState({ endereco })
@@ -44,8 +64,8 @@ export default class maisDados extends Component<maisDadosProps> {
 					/>
 					<Input
 						inputContainerStyle={input}
-						placeholderTextColor={'white'}
-						inputStyle={{ color: 'white' }}
+						placeholderTextColor={'black'}
+						inputStyle={{ color: 'black' }}
 						placeholder={'Escolaridade'}
 						onChangeText={(escolaridade: string) =>
 							this.setState({ escolaridade })
@@ -54,8 +74,8 @@ export default class maisDados extends Component<maisDadosProps> {
 					/>
 					<Input
 						inputContainerStyle={input}
-						placeholderTextColor={'white'}
-						inputStyle={{ color: 'white' }}
+						placeholderTextColor={'black'}
+						inputStyle={{ color: 'black' }}
 						placeholder={'Profissão'}
 						onChangeText={(profissao: string) =>
 							this.setState({ profissao })
@@ -64,8 +84,8 @@ export default class maisDados extends Component<maisDadosProps> {
 					/>
 					<Input
 						inputContainerStyle={input}
-						placeholderTextColor={'white'}
-						inputStyle={{ color: 'white' }}
+						placeholderTextColor={'black'}
+						inputStyle={{ color: 'black' }}
 						keyboardType={'numeric'}
 						placeholder={'RG'}
 						onChangeText={(rg: string) => this.setState({ rg })}
@@ -73,8 +93,8 @@ export default class maisDados extends Component<maisDadosProps> {
 					/>
 					<Input
 						inputContainerStyle={input}
-						placeholderTextColor={'white'}
-						inputStyle={{ color: 'white' }}
+						placeholderTextColor={'black'}
+						inputStyle={{ color: 'black' }}
 						keyboardType={'numeric'}
 						placeholder={'CPF'}
 						onChangeText={(cpf: string) => this.setState({ cpf })}
@@ -82,9 +102,13 @@ export default class maisDados extends Component<maisDadosProps> {
 					/>
 
 					<Button
-						title={'Próximo'}
-						buttonStyle={{ marginTop: 15 }}
-                        titleStyle={{ fontSize: 15 }}
+						title={'PRÓXIMO'}
+						buttonStyle={{
+							marginTop: 15,
+							borderColor: 'black',
+							borderWidth: 2
+						}}
+						titleStyle={{ fontSize: 22 }}
 						onPress={() =>
 							Actions.privacy({
 								idDoc: this.props.idDoc,
@@ -108,7 +132,6 @@ export default class maisDados extends Component<maisDadosProps> {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

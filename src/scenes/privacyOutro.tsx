@@ -109,13 +109,18 @@ export default class privacyOutro extends Component<
 						alignItems: 'center'
 					}}
 				>
-					E quais dos dados a seguir você gostaria de ver em um outro
-					usuário?
+					Nessa rede social, você poderá escolher, dos dados que
+					preencheu, quais deles você gostaria de saber a respeito dos
+					outros usuários: (Aperte para mudar)
 				</Text>
 				<Avatar
 					rounded
 					size="xlarge"
-					source={{ uri: avatar ? 'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png' : null }}
+					source={{
+						uri: avatar
+							? 'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png'
+							: null
+					}}
 					onPress={() => this.setState({ avatar: !avatar })}
 				/>
 				<View
@@ -125,7 +130,10 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-                            buttonStyle={[nome ? button : buttonDisabled, { marginRight: 10 }]}
+						buttonStyle={[
+							nome ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
 						title={'Nome'}
 						onPress={() => this.setState({ nome: !nome })}
 					/>
@@ -135,25 +143,6 @@ export default class privacyOutro extends Component<
 						onPress={() => this.setState({ sobrenome: !sobrenome })}
 					/>
 				</View>
-                <View
-					style={{
-						margin: 10,
-						flexDirection: 'row'
-					}}
-				>
-				<Button
-					buttonStyle={[idade ? button : buttonDisabled, {marginRight: 10}]}
-					title={'Idade'}
-					onPress={() => this.setState({ idade: !idade })}
-				/>
-                <Button
-					buttonStyle={[
-						endereco ? button : buttonDisabled,
-					]}
-					title={'Endereço'}
-					onPress={() => this.setState({ endereco: !endereco })}
-				/>
-                </View>
 				<View
 					style={{
 						margin: 10,
@@ -161,7 +150,30 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-						buttonStyle={[profissao ? button : buttonDisabled, { marginRight: 10 }]}
+						buttonStyle={[
+							idade ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
+						title={'Idade'}
+						onPress={() => this.setState({ idade: !idade })}
+					/>
+					<Button
+						buttonStyle={[endereco ? button : buttonDisabled]}
+						title={'Endereço'}
+						onPress={() => this.setState({ endereco: !endereco })}
+					/>
+				</View>
+				<View
+					style={{
+						margin: 10,
+						flexDirection: 'row'
+					}}
+				>
+					<Button
+						buttonStyle={[
+							profissao ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
 						title={'Profissão'}
 						onPress={() => this.setState({ profissao: !profissao })}
 					/>
@@ -180,7 +192,10 @@ export default class privacyOutro extends Component<
 					}}
 				>
 					<Button
-						buttonStyle={[rg ? button : buttonDisabled, { marginRight: 10 }]}
+						buttonStyle={[
+							rg ? button : buttonDisabled,
+							{ marginRight: 10 }
+						]}
 						title={'RG'}
 						onPress={() => this.setState({ rg: !rg })}
 					/>
@@ -190,11 +205,11 @@ export default class privacyOutro extends Component<
 						onPress={() => this.setState({ cpf: !cpf })}
 					/>
 				</View>
-				
+
 				<Button
 					buttonStyle={[button, { margin: 20 }]}
 					title={'ENVIAR'}
-                    titleStyle={{ fontSize: 25}}
+					titleStyle={{ fontSize: 25 }}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}
 				/>

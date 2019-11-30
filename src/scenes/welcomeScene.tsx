@@ -92,7 +92,7 @@ export default class welcomeScene extends Component<
 							experimento sobre o uso de políticas de privacidade
 							nos dias de hoje. Será pedido para você inserir
 							informações (não precisam ser verdadeiras) que não
-							serão salvas e realizar escolhas.
+							serão salvas e depois realizar algumas escolhas.
 						</Text>
 						<Text style={textoTitulo}> Podemos começar? </Text>
 					</View>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		borderColor: 'black',
 		borderWidth: 2,
-		height: 75,
+		height: 60,
 		width: 95
 	}
 });

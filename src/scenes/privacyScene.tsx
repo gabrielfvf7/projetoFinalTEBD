@@ -144,11 +144,15 @@ export default class privacyScene extends Component<
 						alignItems: 'center'
 					}}
 				>
-					Quais dos seguintes dados você estaria disposto a mostrar
-					livremente numa rede social aberta? (Clique para mudar)
+					E ao mesmo tempo, você pode escolher quais dos seus dados,
+					você deixará públicos:
 				</Text>
 				<Avatar
 					rounded
+					containerStyle={{
+						borderColor: 'black',
+						borderWidth: 5
+					}}
 					size="xlarge"
 					source={{ uri: avatar ? this.props.userData.avatar : null }}
 					onPress={() => this.setState({ avatar: !avatar })}
@@ -173,25 +177,19 @@ export default class privacyScene extends Component<
 						onPress={() => this.setState({ sobrenome: !sobrenome })}
 					/>
 				</View>
-                <View
-					style={{
-						margin: 10,
-						flexDirection: 'row'
-					}}
-				>
 				<Button
-					buttonStyle={[idade ? button : buttonDisabled, {marginRight: 10}]}
+					buttonStyle={[
+						idade ? button : buttonDisabled,
+						{ marginRight: 10, marginBottom: 10 }
+					]}
 					title={this.props.userData.idade + ' anos'}
 					onPress={() => this.setState({ idade: !idade })}
 				/>
-                <Button
-					buttonStyle={[
-						endereco ? button : buttonDisabled,
-					]}
-					title={'Endereço: ' + this.props.userData.endereco}
+				<Button
+					buttonStyle={[endereco ? button : buttonDisabled]}
+					title={this.props.userData.endereco}
 					onPress={() => this.setState({ endereco: !endereco })}
 				/>
-                </View>
 				<View
 					style={{
 						margin: 10,
@@ -234,11 +232,11 @@ export default class privacyScene extends Component<
 						onPress={() => this.setState({ cpf: !cpf })}
 					/>
 				</View>
-				
+
 				<Button
 					buttonStyle={[button, { margin: 20 }]}
 					title={'ENVIAR'}
-                    titleStyle={{ fontSize: 25}}
+					titleStyle={{ fontSize: 25 }}
 					loading={this.state.btnLoading}
 					onPress={() => this.enviarEscolhas()}
 				/>
