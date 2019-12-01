@@ -144,8 +144,9 @@ export default class privacyScene extends Component<
 						alignItems: 'center'
 					}}
 				>
-					E ao mesmo tempo, você pode escolher quais dos seus dados,
-					você deixará públicos:
+					Nessa rede social, você poderá escolher, dos dados que
+					preencheu, quais deles você gostará de deixar público para
+					todos visualizarem: (Clique para mudar)
 				</Text>
 				<Avatar
 					rounded
@@ -265,7 +266,9 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		borderRadius: 8,
-		paddingHorizontal: 25
+        paddingHorizontal: 25,
+        borderColor: 'black',
+        borderWidth: 2
 	},
 	buttonDisabled: {
 		borderRadius: 8,

@@ -240,7 +240,9 @@ export default class graphScene extends Component<
 						alignSelf: 'center',
 						borderRadius: 8,
 						marginTop: 25,
-						width: '50%'
+						width: '50%',
+						borderColor: 'black',
+						borderWidth: 2
 					}}
 					titleStyle={{
 						fontSize: 18,

@@ -235,19 +235,6 @@ export default class graphScene extends Component<
 						</View>
 					</View>
 				</View>
-				<Button
-					buttonStyle={{
-						alignSelf: 'center',
-						borderRadius: 8,
-						marginTop: 25,
-						width: '50%'
-					}}
-					titleStyle={{
-						fontSize: 18,
-						fontWeight: 'bold'
-					}}
-					title={'Ver próximo'}
-				/>
 			</View>
 		);
 	}

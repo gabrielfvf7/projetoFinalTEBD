@@ -109,9 +109,8 @@ export default class privacyOutro extends Component<
 						alignItems: 'center'
 					}}
 				>
-					Nessa rede social, você poderá escolher, dos dados que
-					preencheu, quais deles você gostaria de saber a respeito dos
-					outros usuários: (Aperte para mudar)
+					E desses mesmos dados, quais você gostaria de visualizar no
+					perfil dos outros usuários?
 				</Text>
 				<Avatar
 					rounded
@@ -238,7 +237,9 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		borderRadius: 8,
-		paddingHorizontal: 25
+		paddingHorizontal: 25,
+		borderColor: 'black',
+		borderWidth: 2
 	},
 	buttonDisabled: {
 		borderRadius: 8,

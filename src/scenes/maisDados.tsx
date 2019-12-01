@@ -34,10 +34,6 @@ export default class maisDados extends Component<maisDadosProps> {
 				<View style={container}>
 					<View
 						style={{
-							borderRadius: 8,
-							borderWidth: 3,
-							borderColor: 'black',
-							backgroundColor: 'white',
 							marginHorizontal: 10,
 							marginBottom: 10
 						}}

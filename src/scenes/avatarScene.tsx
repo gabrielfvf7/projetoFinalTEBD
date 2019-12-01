@@ -97,10 +97,6 @@ export default class avatarScene extends Component<
 					</Overlay>
 					<View
 						style={{
-							borderRadius: 8,
-							borderWidth: 3,
-							borderColor: 'black',
-							backgroundColor: 'white',
 							marginHorizontal: 10,
 							marginBottom: 10
 						}}
